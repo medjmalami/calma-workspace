@@ -2,7 +2,9 @@
 
 ## Current state
 
-Phase 0 is complete. The default GitHub branch is `main`, and the current pushed commit is `1bebc4a` (`fix: import React for classic JSX runtime`).
+Phase 0 and F1 are complete locally. F1 is implemented on
+`feature/F1-account-profile`; the branch will be pushed after final
+verification.
 
 ## Completed
 
@@ -19,20 +21,24 @@ Phase 0 is complete. The default GitHub branch is `main`, and the current pushed
 - Minimal React/Vite frontend foundation screen
 - `.env.example`, package lockfiles, and setup documentation
 - React classic JSX runtime fix for the frontend blank-page error
+- F1 client registration and profile-domain foundation for all four client
+  types, with bcrypt-backed credentials, strict validation, duplicate-email
+  conflicts, and a minimal registration screen
 
 ## Verification completed
 
-- Jest: 2 test suites and 2 tests passing
+- Jest: 4 test suites and 11 tests passing
 - ESLint: passing
 - Frontend production build: passing
 - Docker Compose configuration: valid
-- Development and test database migrations: applied successfully
+- Development and test database migrations: applied successfully on the
+  documented isolated ports (`55432`/`55433`)
 
 ## Remaining increments
 
 ### Increment 1
 
-- F1: Account and profile management for STUDENT, PUPIL, DEVELOPER, and ENTREPRENEUR clients
+- F1: Account and profile management for STUDENT, PUPIL, DEVELOPER, and ENTREPRENEUR clients — complete
 - F2: Secure authentication, JWTs, bcrypt hashing, RBAC, login rate limiting, and non-enumerating errors
 - F3: Manager room configuration CRUD and safe deactivation
 - F4: Availability search by date, time slot, and attendee count
@@ -56,4 +62,4 @@ Phase 0 is complete. The default GitHub branch is `main`, and the current pushed
 
 ## Next action
 
-Begin F1 only after the user says `next`.
+Stop after F1. Begin F2 only after the user says `next`.
