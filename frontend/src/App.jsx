@@ -1,3 +1,5 @@
+import React from 'react';
+
 const upcomingFeatures = [
   'Find a room that fits your schedule',
   'Reserve a focused space in a few steps',
