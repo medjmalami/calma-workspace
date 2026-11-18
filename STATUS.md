@@ -2,9 +2,9 @@
 
 ## Current state
 
-Phase 0 and F1 are complete locally. F1 is implemented on
-`feature/F1-account-profile`; the branch will be pushed after final
-verification.
+Phase 0 and F1 are complete. F1 was merged into the default GitHub `main`
+branch through [PR #1](https://github.com/medjmalami/calma-workspace/pull/1).
+The current pushed commit is `8c79790`.
 
 ## Completed
 
@@ -33,6 +33,8 @@ verification.
 - Docker Compose configuration: valid
 - Development and test database migrations: applied successfully on the
   documented isolated ports (`55432`/`55433`)
+- F1 manual API smoke checks: registration `201`, duplicate email `409`, and
+  role injection `422`
 
 ## Remaining increments
 
@@ -56,8 +58,7 @@ verification.
 
 ## Not implemented
 
-- Domain tables beyond the initial PostgreSQL extension migration
-- Client accounts, staff accounts, rooms, reservations, payments, and receipts
+- Staff accounts, authentication, rooms, reservations, payments, and receipts
 - Optional subscriptions, parental authorization, cancellation, notifications, attendance tracking, and dashboards
 
 ## Next action
