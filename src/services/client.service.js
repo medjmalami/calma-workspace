@@ -90,7 +90,21 @@ async function updateClientProfile(
   return toPublicClient(client);
 }
 
+async function getClientProfile(
+  clientId,
+  { repository = clientRepository } = {},
+) {
+  const client = await repository.findClientById(clientId);
+
+  if (!client) {
+    throw new AppError(401, 'AUTHENTICATION_REQUIRED', 'Authentication required');
+  }
+
+  return toPublicClient(client);
+}
+
 module.exports = {
+  getClientProfile,
   registerClient,
   toPublicClient,
   updateClientProfile,

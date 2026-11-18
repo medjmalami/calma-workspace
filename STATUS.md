@@ -2,7 +2,7 @@
 
 ## Current state
 
-Phase 0 and F1 are complete. F1 was merged into the default GitHub `main`
+Phase 0 through F4 are complete. F1 was merged into the default GitHub `main`
 branch through [PR #1](https://github.com/medjmalami/calma-workspace/pull/1).
 The current pushed commit is `8c79790`.
 
@@ -24,10 +24,18 @@ The current pushed commit is `8c79790`.
 - F1 client registration and profile-domain foundation for all four client
   types, with bcrypt-backed credentials, strict validation, duplicate-email
   conflicts, and a minimal registration screen
+- F2 client login, short-lived JWTs, bearer authentication, generic RBAC,
+  login rate limiting, non-enumerating credential failures, and protected
+  profile routes
+- F3 manager-only room configuration CRUD with case-insensitive unique names,
+  capacity validation, and soft deactivation
+- F4 timezone-aware availability search with opening-hour, duration, future
+  start, capacity, and buffered reservation-overlap rules
+- F2–F4 frontend handoff screen for sign-in and availability search
 
 ## Verification completed
 
-- Jest: 4 test suites and 11 tests passing
+- Jest: 12 test suites and 50 tests passing
 - ESLint: passing
 - Frontend production build: passing
 - Docker Compose configuration: valid
@@ -41,9 +49,9 @@ The current pushed commit is `8c79790`.
 ### Increment 1
 
 - F1: Account and profile management for STUDENT, PUPIL, DEVELOPER, and ENTREPRENEUR clients — complete
-- F2: Secure authentication, JWTs, bcrypt hashing, RBAC, login rate limiting, and non-enumerating errors
-- F3: Manager room configuration CRUD and safe deactivation
-- F4: Availability search by date, time slot, and attendee count
+- F2: Secure authentication, JWTs, bcrypt hashing, RBAC, login rate limiting, and non-enumerating errors — complete
+- F3: Manager room configuration CRUD and safe deactivation — complete
+- F4: Availability search by date, time slot, and attendee count — complete
 
 ### Increment 2
 
@@ -58,9 +66,9 @@ The current pushed commit is `8c79790`.
 
 ## Not implemented
 
-- Staff accounts, authentication, rooms, reservations, payments, and receipts
+- Staff-account provisioning, reservation creation, payments, and receipts
 - Optional subscriptions, parental authorization, cancellation, notifications, attendance tracking, and dashboards
 
 ## Next action
 
-Stop after F1. Begin F2 only after the user says `next`.
+Stop after F4. Begin F5 only after the user says `next`.
