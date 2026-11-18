@@ -52,6 +52,29 @@ Expected response:
 {"status":"ok","service":"calma-workspace"}
 ```
 
+## F1 client registration
+
+F1 exposes client registration for `STUDENT`, `PUPIL`, `DEVELOPER`, and
+`ENTREPRENEUR` accounts. Email addresses are normalized to lowercase, phone is
+optional, and passwords are stored as bcrypt hashes. Registration responses do
+not contain password hashes.
+
+```bash
+curl -X POST http://localhost:3000/clients/register \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "Ada Lovelace",
+    "email": "ada@example.com",
+    "phone": "+216 20 000 000",
+    "clientType": "DEVELOPER",
+    "password": "<at-least-8-characters>"
+  }'
+```
+
+Profile business rules are available in the service layer: only name and
+phone are mutable. Authenticated profile HTTP routes, login, JWT issuance,
+RBAC, and rate limiting are scheduled for F2.
+
 ## Database migrations
 
 Migrations are plain SQL files in `src/db/migrations`. The migration runner records applied filenames in the `schema_migrations` table and applies each pending migration in order inside a transaction.

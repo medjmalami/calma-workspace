@@ -1,6 +1,11 @@
 const request = require('supertest');
 
 const AppError = require('../errors/app-error');
+
+jest.mock('../services/client.service', () => ({
+  registerClient: jest.fn(),
+}));
+
 const clientService = require('../services/client.service');
 const app = require('../app');
 
