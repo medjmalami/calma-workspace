@@ -15,11 +15,13 @@ const environmentSchema = z.object({
   JWT_EXPIRES_IN: z.string().min(1).default('15m'),
   BCRYPT_ROUNDS: z.coerce.number().int().min(4).max(31).default(12),
   MAX_DURATION_HOURS: z.coerce.number().positive().default(8),
+  MAX_ROOM_CAPACITY: z.coerce.number().int().positive().default(1000),
   BUFFER_MINUTES: z.coerce.number().nonnegative().default(15),
   HOURLY_RATE_MILLIMES: z.coerce.number().int().nonnegative().default(5000),
   DAILY_RATE_MILLIMES: z.coerce.number().int().nonnegative().default(25000),
   OPENING_TIME: z.string().regex(timePattern).default('08:00'),
   CLOSING_TIME: z.string().regex(timePattern).default('20:00'),
+  TIMEZONE: z.string().min(1).default('Africa/Tunis'),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(900000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(100),
   LOGIN_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(5),
@@ -64,11 +66,13 @@ const config = Object.freeze({
   }),
   booking: Object.freeze({
     maxDurationHours: environment.MAX_DURATION_HOURS,
+    maxRoomCapacity: environment.MAX_ROOM_CAPACITY,
     bufferMinutes: environment.BUFFER_MINUTES,
     hourlyRateMillimes: environment.HOURLY_RATE_MILLIMES,
     dailyRateMillimes: environment.DAILY_RATE_MILLIMES,
     openingTime: environment.OPENING_TIME,
-    closingTime: environment.CLOSING_TIME
+    closingTime: environment.CLOSING_TIME,
+    timezone: environment.TIMEZONE,
   }),
   http: Object.freeze({
     jsonBodyLimit: environment.JSON_BODY_LIMIT,

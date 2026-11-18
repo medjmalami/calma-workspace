@@ -208,9 +208,42 @@ h2 {
   line-height: 1.5;
 }
 
+.view-switcher {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 1.6rem;
+  padding: 0.25rem;
+  border-radius: 0.8rem;
+  background: rgba(117, 141, 114, 0.1);
+}
+
+.view-tab {
+  flex: 1;
+  padding: 0.55rem 0.45rem;
+  border: 0;
+  border-radius: 0.6rem;
+  color: #657168;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+
+.view-tab.active {
+  color: #26332e;
+  background: #fff;
+  box-shadow: 0 0.2rem 0.7rem rgba(38, 51, 46, 0.08);
+}
+
 .registration-form {
   display: grid;
   gap: 1rem;
+}
+
+.availability-time-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
 }
 
 .field-group {
@@ -341,6 +374,56 @@ input::placeholder {
 .submit-button:disabled {
   cursor: wait;
   opacity: 0.68;
+}
+
+.availability-results {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(101, 113, 104, 0.18);
+}
+
+.results-heading,
+.room-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.results-heading {
+  color: #657168;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.room-list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.room-result {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(117, 141, 114, 0.2);
+  border-radius: 0.65rem;
+  color: #26332e;
+  background: rgba(137, 184, 142, 0.08);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.room-result span:last-child {
+  color: #758d72;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.empty-results {
+  margin: 0.8rem 0 0;
+  color: #657168;
+  font-size: 0.85rem;
 }
 
 .site-footer {

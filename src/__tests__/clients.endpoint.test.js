@@ -1,9 +1,13 @@
 const request = require('supertest');
+const jwt = require('jsonwebtoken');
 
 const AppError = require('../errors/app-error');
+const config = require('../config');
 
 jest.mock('../services/client.service', () => ({
   registerClient: jest.fn(),
+  getClientProfile: jest.fn(),
+  updateClientProfile: jest.fn(),
 }));
 
 const clientService = require('../services/client.service');
@@ -105,6 +109,79 @@ describe('POST /clients/register', () => {
         code: 'CLIENT_EMAIL_ALREADY_EXISTS',
         message: 'A client account with this email already exists',
       },
+    });
+  });
+});
+
+describe('protected client profile routes', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('returns the current client for a valid bearer token', async () => {
+    clientService.getClientProfile.mockResolvedValue({
+      id: 'client-1',
+      name: 'Ada Lovelace',
+      email: 'ada@example.com',
+      phone: null,
+      clientType: 'DEVELOPER',
+      createdAt: '2026-01-01T10:00:00.000Z',
+      updatedAt: '2026-01-01T10:00:00.000Z',
+    });
+
+    const token = jwt.sign(
+      { sub: 'client-1', role: 'CLIENT' },
+      config.auth.jwtSecret,
+      { expiresIn: '15m' },
+    );
+    const response = await request(app)
+      .get('/clients/me')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      client: expect.objectContaining({
+        id: 'client-1',
+        email: 'ada@example.com',
+      }),
+    });
+    expect(clientService.getClientProfile).toHaveBeenCalledWith('client-1');
+  });
+
+  it('rejects profile access without authentication', async () => {
+    const response = await request(app).get('/clients/me');
+
+    expect(response.status).toBe(401);
+    expect(response.body.error.code).toBe('AUTHENTICATION_REQUIRED');
+    expect(clientService.getClientProfile).not.toHaveBeenCalled();
+  });
+
+  it('updates the current client through the protected route', async () => {
+    clientService.updateClientProfile.mockResolvedValue({
+      id: 'client-1',
+      name: 'Grace Hopper',
+      email: 'ada@example.com',
+      phone: null,
+      clientType: 'DEVELOPER',
+      createdAt: '2026-01-01T10:00:00.000Z',
+      updatedAt: '2026-01-01T11:00:00.000Z',
+    });
+
+    const token = jwt.sign(
+      { sub: 'client-1', role: 'CLIENT' },
+      config.auth.jwtSecret,
+      { expiresIn: '15m' },
+    );
+    const response = await request(app)
+      .patch('/clients/me')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Grace Hopper', phone: null });
+
+    expect(response.status).toBe(200);
+    expect(response.body.client.name).toBe('Grace Hopper');
+    expect(clientService.updateClientProfile).toHaveBeenCalledWith('client-1', {
+      name: 'Grace Hopper',
+      phone: null,
     });
   });
 });
