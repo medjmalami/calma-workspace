@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-calma_workspace}
+      POSTGRES_USER: ${POSTGRES_USER:-calma}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-calma}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - calma_workspace_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  test-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${TEST_POSTGRES_DB:-calma_workspace_test}
+      POSTGRES_USER: ${TEST_POSTGRES_USER:-calma}
+      POSTGRES_PASSWORD: ${TEST_POSTGRES_PASSWORD:-calma}
+    ports:
+      - "${TEST_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - calma_workspace_test_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  calma_workspace_db_data:
+  calma_workspace_test_db_data:
